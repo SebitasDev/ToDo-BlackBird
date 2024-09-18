@@ -10,7 +10,17 @@ public class MongoDbContext
 
     public MongoDbContext(IOptions<DatabaseSettings> databaseSettings)
     {
-        MongoClient mongoClient = new(databaseSettings.Value.ConnectionString); //Crea una instancia de mongoClient usando la cadena de conexion
+        var settings = MongoClientSettings.FromUrl(new
+            MongoUrl(databaseSettings.Value.ConnectionString)
+        );
+
+        settings.SslSettings = new SslSettings
+        {
+            EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12
+        };
+        
+        MongoClient mongoClient = new(settings); //Crea una instancia de mongoClient usando la cadena de conexion
+        
         _database = mongoClient.GetDatabase(databaseSettings.Value.DatabaseName); //Se obtiene la db usando el nombre de la base de datos
     }
 

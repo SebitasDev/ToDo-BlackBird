@@ -4,10 +4,9 @@ using ToDoList.Repository.ToDo;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.Configure<DatabaseSettings>(
-        builder.Configuration.GetSection("MongoConnection")
-    );
+    builder.Configuration.GetSection("MongoConnection")
+);
 
 builder.Services.AddSingleton<MongoDbContext>();
 builder.Services.AddScoped<IToDoRepository, ToDoRepository>();
@@ -19,9 +18,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("NewPolicy" , app =>
+    options.AddPolicy("NewPolicy", policy =>
     {
-        app.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
     });
 });
 

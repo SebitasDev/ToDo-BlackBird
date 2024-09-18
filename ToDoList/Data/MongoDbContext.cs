@@ -16,7 +16,7 @@ public class MongoDbContext
 
         settings.SslSettings = new SslSettings
         {
-            EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12
+            CheckCertificateRevocation = false
         };
         
         MongoClient mongoClient = new(settings); //Crea una instancia de mongoClient usando la cadena de conexion

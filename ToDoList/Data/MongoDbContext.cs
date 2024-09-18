@@ -10,18 +10,20 @@ public class MongoDbContext
 
     public MongoDbContext(IOptions<DatabaseSettings> databaseSettings)
     {
-        var settings = MongoClientSettings.FromUrl(new
-            MongoUrl(databaseSettings.Value.ConnectionString)
-        );
+        var settings = MongoClientSettings.FromUrl(new MongoUrl(databaseSettings.Value.ConnectionString));
 
         settings.SslSettings = new SslSettings
         {
-            CheckCertificateRevocation = false
+            CheckCertificateRevocation = false,
+            EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12
         };
-        
-        MongoClient mongoClient = new(settings); //Crea una instancia de mongoClient usando la cadena de conexion
-        
-        _database = mongoClient.GetDatabase(databaseSettings.Value.DatabaseName); //Se obtiene la db usando el nombre de la base de datos
+
+        // Establecer tiempo de espera de conexión y socket
+        settings.ConnectTimeout = TimeSpan.FromSeconds(30);
+        settings.SocketTimeout = TimeSpan.FromSeconds(30);
+
+        MongoClient mongoClient = new MongoClient(settings);
+        _database = mongoClient.GetDatabase(databaseSettings.Value.DatabaseName);
     }
 
     public IMongoCollection<ToDo> ToDos => _database.GetCollection<ToDo>("ToDos"); //Conexion con la collecion

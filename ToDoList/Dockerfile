@@ -1,4 +1,6 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+# Instalar OpenSSL y certificados de CA
+RUN apt-get update && apt-get install -y openssl ca-certificates
 USER $APP_UID
 WORKDIR /app
 EXPOSE 8080

@@ -7,7 +7,7 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["ToDoList.csproj", "ToDoList/"]
+COPY ["ToDoList/ToDoList.csproj", "ToDoList/"]
 RUN dotnet restore "ToDoList.csproj"
 COPY . .
 WORKDIR "/src/ToDoList"

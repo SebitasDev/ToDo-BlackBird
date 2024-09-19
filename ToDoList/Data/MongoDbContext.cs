@@ -12,10 +12,11 @@ public class MongoDbContext
     {
         var settings = MongoClientSettings.FromUrl(new MongoUrl(databaseSettings.Value.ConnectionString));
 
-        settings.SslSettings = new SslSettings
+        //Configura las opciones de SSL
+        settings.SslSettings = new SslSettings 
         {
-            CheckCertificateRevocation = false,
-            EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12
+            CheckCertificateRevocation = false, //Deshabilita la verificacion de revocacion de certificado
+            EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12 //Habilita el protocolo TLS 1.2
         };
 
         // Establecer tiempo de espera de conexión y socket

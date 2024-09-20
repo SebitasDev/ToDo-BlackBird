@@ -19,7 +19,7 @@ public class ToDoRepository : IToDoRepository
     {
         try
         {
-            List<Models.ToDo> listToDo = await _context.ToDos.Find(t => true)
+            List<Models.ToDo> listToDo = await _context.ToDos.Find(t => t.IsActive == true)
                 .ToListAsync();
 
             return listToDo;

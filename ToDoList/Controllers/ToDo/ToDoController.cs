@@ -25,6 +25,18 @@ public class ToDoController : ControllerBase
             response = result
         });
     }
+    
+    [HttpGet("[action]")]
+    public async Task<IActionResult> GetAllToDosDelete()
+    {
+        var result = await _toDoRepository.GetAllToDoDelete();
+
+        return Ok(new
+        {
+            status = true,
+            response = result
+        });
+    }
 
     [HttpGet("[action]/{id}")]
     public async Task<IActionResult> GetToDoById(string id)

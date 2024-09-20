@@ -8,6 +8,7 @@ public interface IToDoRepository
     //GET
     Task<List<Models.ToDo>> GetAllToDos(); //Get all
     Task<Models.ToDo> GetToDoById(string id); //Get ById
+    Task<List<Models.ToDo>> GetAllToDoDelete(); //Get all Delete
     
     //CREATE
     Task<Models.ToDo> CreateToDo(ToDoDTO toDoDto); //Create ToDo

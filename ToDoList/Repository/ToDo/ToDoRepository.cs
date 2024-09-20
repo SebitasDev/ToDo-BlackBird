@@ -46,6 +46,22 @@ public class ToDoRepository : IToDoRepository
             throw;
         }
     }
+    
+    public async Task<List<Models.ToDo>> GetAllToDoDelete()
+    {
+        try
+        {
+            List<Models.ToDo> listToDo = await _context.ToDos.Find(t => t.IsActive == false)
+                .ToListAsync();
+
+            return listToDo;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
 
     //CREATE
     public async Task<Models.ToDo> CreateToDo(ToDoDTO toDoDto)
